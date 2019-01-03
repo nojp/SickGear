@@ -226,7 +226,15 @@ function rowRestore() {
 			imgUpdate(link$, 'Loading', uiOptions.loadingImage);
 			uiWanted(link$.closest('tr'));
 
-			$.getJSON({url: baseUrl() + $(this).attr('href'), timeout: 15000})
+			var newSearch = '';
+
+			if ($(this).attr('href').startsWith(baseUrl())) {
+					newSearch = $(this).attr('href')
+			} else {
+					newSearch = baseUrl() + $(this).attr('href')
+			}
+
+			$.getJSON({url: newSearch, timeout: 15000})
 				.done(function(data) {
 					logInfo('getJSON() data...', data);
 
